@@ -26,6 +26,7 @@ class App extends Component {
   		for(var i = 0; i < children.length; ++i){
   			var obj = {};
 
+  			obj["id"] = i;
   			obj["subreddit"] = children[i].data.subreddit;
   			obj["ups"] = children[i].data.ups;
   			obj["title"] = children[i].data.title;
@@ -58,23 +59,23 @@ class App extends Component {
 
   	// Create elements for posts grouped by subreddit
   	const redditPosts = Object.keys(posts).map((item) => 
-  		<div class="postOuterDiv">
+  		<div className="postOuterDiv" key={item}>
   		<h1>{item}</h1>
   		{
   			posts[item].map((p) => {
-  				return(<div>
-  					<div class="postInnerDiv">
-  					<img src={p.image}/>
-  					<span>{p.created_date} &nbsp;&nbsp;&nbsp;&nbsp; {p.ups} Upvotes<br/><br/><a href={p.url}>{p.title}</a></span>
+  				return(<div key={p.id}> 
+  					<div className="postInnerDiv">
+  						<img src={p.image}/>
+  						<span>{p.created_date} &nbsp;&nbsp;&nbsp;&nbsp; {p.ups} Upvotes<br/><br/><a href={p.url}>{p.title}</a></span>
   					</div>
-  					</div>);
+  				</div>);
   			})
   		}
   		</div>
   	);
 
     return (
-    	<div class="mainDiv">{redditPosts}</div>
+    	<div className="mainDiv">{redditPosts}</div>
     )
   }
 }
